@@ -1,18 +1,27 @@
-import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
+
 import { Character } from '../../interfaces/character.interface';
+import { v4 as uuid } from 'uuid';
+
 
 @Component({
-  selector: 'app-dbz-list',
+  selector: 'dbz-list',
   templateUrl: './list.component.html',
-  styleUrl: './list.component.css',
+  styleUrl: './list.component.css'
 })
-export class ListComponents {
-
+export class ListComponent {
 
   @Input()
-  public characterList : Character[]=[{
-    name:'Trunks',
+  public characterLists: Character[] = [{
+    id: uuid(),
+    name: 'Trunks',
     power: 10
-  }]
+  }];
 
- }
+  @Output()
+  public onDelete: EventEmitter<string> = new EventEmitter();
+  onDeleteCharacter(id:string): void{
+    this.onDelete.emit( id );
+  }
+
+}
